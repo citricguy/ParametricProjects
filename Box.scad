@@ -8,12 +8,18 @@
 // Parameters
 inner_height = 30; // Inner height of the box
 inner_width = 30;  // Inner width of the box
-inner_depth = 30;  // Inner depth of the box
+inner_depth = 40;  // Inner depth of the box
 
 wall_thickness = 2; // Thickness of the outer wall
-lid_height = 5; // Height of the lid cut based on the inner box
-lid_box_overlap = 3; // Overlap height between lid and box
+lid_height = 20; // Height of the lid cut based on the inner box
+lid_box_overlap = 10; // Overlap height between lid and box
+
+enable_snaps = 1; // Set to 1 to enable snaps, 0 to disable
+side_snap_height = 3; // Height of the side snap
+side_snap_width = 3; // Width of the side snap (Distance between the midpoints of the circular edges of the snap)
+
 apply_chamfer = 1; // Set to 1 to apply chamfer, 0 to disable
+
 printer_tolerance = 0.18; // Tolerance for the printer
 
 // Adjusted inner dimensions accounting for printer tolerance
@@ -87,6 +93,42 @@ module box() {
         translate([0, 0, adjusted_inner_height / 2 + wall_thickness])
             cube([adjusted_inner_width, adjusted_inner_depth, adjusted_inner_height], center = true);
     }
+
+    if (enable_snaps) {
+        difference() {
+            rotate([0, 90, 0])
+            translate([-outer_height + lid_height - side_snap_height/2 - lid_box_overlap/3, 0, -outer_width/2])
+                linear_extrude(height = outer_width)
+                    hull() {
+                        translate([0, side_snap_width - printer_tolerance/2, 0]) circle(d=side_snap_height - printer_tolerance/2, $fn=50);
+                        translate([0, -side_snap_width + printer_tolerance/2, 0]) circle(d=side_snap_height - printer_tolerance/2, $fn=50);
+                    }
+                    
+            translate([0, 0, adjusted_inner_height / 2 + wall_thickness])
+                cube([adjusted_inner_width, adjusted_inner_depth, adjusted_inner_height], center = true);
+
+            // Right Bottom Snap Chamfer
+            translate([outer_width/2,0,outer_height - lid_height + side_snap_height/2 + lid_box_overlap/3 - side_snap_height/3])
+                rotate([0, 45, 0])
+                cube([1, 100, 10], center = true);
+
+            // Right Top Snap Chamfer
+            translate([outer_width/2,0,outer_height - lid_height + side_snap_height/2 + lid_box_overlap/3 + side_snap_height/3])
+                rotate([0, -45, 0])
+                cube([1, 100, 10], center = true);
+
+            // Left Bottom Snap Chamfer
+            translate([-outer_width/2,0,outer_height - lid_height + side_snap_height/2 + lid_box_overlap/3 - side_snap_height/3])
+                rotate([0, -45, 0])
+                cube([1, 100, 10], center = true);
+
+            // Left Top Snap Chamfer
+            translate([-outer_width/2,0,outer_height - lid_height + side_snap_height/2 + lid_box_overlap/3 + side_snap_height/3])
+                rotate([0, 45, 0])
+                cube([1, 100, 10], center = true);
+        }
+    }
+    
 }
 
 module sliding_lid() {
@@ -143,6 +185,17 @@ module sliding_lid() {
             
             translate([0, 0, lid_height / 2 - lid_box_overlap / 2])
                 cube([adjusted_inner_width + wall_thickness + printer_tolerance / 2, adjusted_inner_depth + wall_thickness + printer_tolerance / 2, lid_box_overlap], center = true);
+
+            if (enable_snaps) {
+                rotate([0, 90, 0])
+                    translate([-lid_height/2 +side_snap_height/2 + lid_box_overlap/3, 0, -outer_width/2])
+                        linear_extrude(height = outer_width)
+                            hull() {
+                                translate([0, side_snap_width + printer_tolerance/2, 0]) circle(d=side_snap_height + printer_tolerance/2, $fn=50);
+                                translate([0, -side_snap_width - printer_tolerance/2, 0]) circle(d=side_snap_height + printer_tolerance/2, $fn=50);
+                            }
+            }
+            
         }
 }
 
