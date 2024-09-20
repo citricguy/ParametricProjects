@@ -4,7 +4,7 @@ A collection of simple parametric designs.
 
 ## License
 
-This project is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+This project is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 ### Terms of Use:
 
@@ -12,7 +12,7 @@ This project is licensed under the [Creative Commons Attribution-NonCommercial-N
   
 - **NonCommercial**: You may not use the material for commercial purposes.
   
-- **No Derivatives**: If you remix, transform, or build upon the material, you may not distribute the modified material.
+- **ShareAlike**: If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
 
 ## Installation
 
