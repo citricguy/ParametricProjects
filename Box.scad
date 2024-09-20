@@ -19,13 +19,13 @@
 \* ********************************************************************* */
 
 // Parameters
-inner_height = 30; // Inner height of the box
-inner_width = 30;  // Inner width of the box
-inner_depth = 40;  // Inner depth of the box
+inner_height = 60; // Inner height of the box
+inner_width = 60;  // Inner width of the box
+inner_depth = 60;  // Inner depth of the box
 
-printer_tolerance = 0.35; // This will be added to any dimension needing accuracy. Adjust as needed. (Tight .15, Normal .35, Loose .5)
+printer_tolerance = 0.4; // This will be added to any dimension needing accuracy. Adjust as needed. (Tight .15, Normal .35, Loose .5)
 
-wall_thickness = 2; // Thickness of the outer wall
+wall_thickness = 3; // Thickness of the outer wall
 lid_height = 20; // Height of the lid cut based on the inner box
 lid_box_overlap = 10; // Overlap height between lid and box
 
