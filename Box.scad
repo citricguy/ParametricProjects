@@ -1,14 +1,29 @@
 /* ********************************************************************* *\
-    This box is ment to be dimentionally accurate on the interior.
+    This box is designed to be dimensionally accurate on the interior.
 
-    The outer dimensions are calculated based on the inner dimensions, 
-    your printers tolerance setting and wall thickness.
+    The outer dimensions are determined by the inner dimensions, 
+    your printer's tolerance settings, and wall thickness.
+
+    You can opt for a loosely fitting lid or a sliding lid with snaps. 
+    Alternatively, use a tight-fitting lid without snaps for smaller 
+    printer tolerances.
+
+    Keeping the wall thickness thin allows the snaps to function properly, 
+    as the base can flex slightly for easy fitting and release. If the wall 
+    thickness is too thick, the snaps may not operate effectively, and a 
+    friction fit should be used instead.
+
+    Note that the snap settings may not work if the lid is too thick, as 
+    they are designed for thinner lids. Also, if the overlap is too small
+    the snaps may not work as intended and could break your print.
 \* ********************************************************************* */
 
 // Parameters
 inner_height = 30; // Inner height of the box
 inner_width = 30;  // Inner width of the box
 inner_depth = 40;  // Inner depth of the box
+
+printer_tolerance = 0.35; // This will be added to any dimension needing accuracy. Adjust as needed. (Tight .15, Normal .35, Loose .5)
 
 wall_thickness = 2; // Thickness of the outer wall
 lid_height = 20; // Height of the lid cut based on the inner box
@@ -20,7 +35,6 @@ side_snap_width = 3; // Width of the side snap (Distance between the midpoints o
 
 apply_chamfer = 1; // Set to 1 to apply chamfer, 0 to disable
 
-printer_tolerance = 0.18; // Tolerance for the printer
 
 // Adjusted inner dimensions accounting for printer tolerance
 adjusted_inner_height = inner_height + printer_tolerance;
